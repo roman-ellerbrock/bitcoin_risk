@@ -1,0 +1,65 @@
+[project]
+name = "bitcoin_risk"
+version = "0.1.0"
+description = "Simple risk metric for Bitcoin"
+readme = "README.md"
+classifiers = [
+    'Programming Language :: Python :: 3',
+    'License :: Other/Proprietary License',
+    'Operating System :: OS Independent',
+]
+requires-python = "> 3.9"
+authors = [
+    {name = "Roman Ellerbrock", email = "romanellerbrock@gmail.com"},
+]
+maintainers = [
+    {name = "Roman Ellerbrock", email = "romanellerbrock@gmail.com"},
+]
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+follow_imports = "skip"
+
+[tool.setuptools.package-data]
+bitcoin_risk = ["**/*.so", "**/*.pyd"]
+
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["bitcoin_risk*"]  # package names should match these glob patterns (["*"] by default)
+
+[tool.pixi.project]
+channels = ["conda-forge", "openeye"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+bitcoin_risk = { path = ".", editable = true }
+networkx = ">=3.4.1,<4"
+pre-commit = ">=4.0.1,<5"
+matplotlib = ">=3.9.2,<4"
+numpy = ">=1.26.4,<2"
+pandas = ">=2.2.3,<3"
+
+[tool.pixi.feature.test.pypi-dependencies]
+pytest = ">=8.3.3,<9"
+pytest-xdist = ">=3.6.1,<4"
+nbval = ">=0.11.0,<0.12"
+
+[tool.pixi.feature.test.tasks]
+test = "pytest -v --numprocesses=4 --cov=bitcoin_risk --cov-report=xml --no-cov-on-fail --cov-branch tests"
+
+[tool.pixi.feature.build.pypi-dependencies]
+mypy = ">=1.12.0,<2"
+pyarmor = ">=8.5.1,<9"
+pip = ">=24.2,<25"
+
+[tool.pixi.feature.build.tasks]
+stubs = "stubgen -o dist bitcoin_risk"
+
+[tool.pixi.environments]
+dev = ["dev"]
+build = ["build"]
+test = ["test"]
