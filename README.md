@@ -4,7 +4,7 @@ This Python package provides a simple risk metric for the BTC/USD pair based on 
 
 ## Results
 
-Here's a snapshow of risk metric (click the [link][https://roman-ellerbrock.github.io/bitcoin_risk/btc.html] below for an interactive version)
+Here's a snapshow of risk metric (click the [link](https://roman-ellerbrock.github.io/bitcoin_risk/btc.html) below for an interactive version)
 
 ![Bitcoin Risk Chart](docs/btc.png)
 
