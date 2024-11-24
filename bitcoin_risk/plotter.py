@@ -88,5 +88,4 @@ def bitcoin_plot(btc):
 
     add_colordropdown(fig)
 
-    fig.write_html('btc.html')
     return fig
