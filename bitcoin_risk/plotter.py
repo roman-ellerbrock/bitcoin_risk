@@ -31,7 +31,7 @@ def bitcoin_plot(btc):
                 y=y,
                 mode='lines',
                 name=name,
-                line=dict(color=color),
+                line=dict(color=color, width=1),
                 yaxis='y',
                 showlegend=False
             )
@@ -44,13 +44,15 @@ def bitcoin_plot(btc):
         x='date',
         y='usd',
         color='risk',  # Color the scatter points by the 'risk' column
-        title='Historical Bitcoin Price and Logarithmic Regression',
+        title='Bitcoin Logarithmic Regression Risk Metric',
         color_continuous_scale='Turbo'
     )
 
-    future = btc[btc['date'] > '2024-11-01']
-    add_line(fig, future['date'], future['top'], 'rgba(200, 000, 000, 0.5)', 'top')
-    add_line(fig, future['date'], future['undervalued'], 'rgba(0, 000, 200, 0.5)', 'bottom')
+    # future = btc[btc['date'] > '2024-11-01']
+    future = btc
+    # add_line(fig, future['date'], future['fit'], 'rgba(000, 200, 000, 0.4)', 'top')
+    add_line(fig, future['date'], future['top'], 'rgba(200, 000, 000, 0.4)', 'top')
+    add_line(fig, future['date'], future['undervalued'], 'rgba(0, 000, 200, 0.4)', 'bottom')
 
     # Convert the figure to a Plotly Graph Object figure to add a second axis
     fig = go.Figure(fig)
