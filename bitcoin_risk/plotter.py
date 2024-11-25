@@ -44,7 +44,7 @@ def bitcoin_plot(btc):
         x='date',
         y='usd',
         color='risk',  # Color the scatter points by the 'risk' column
-        title='Bitcoin Logarithmic Regression Risk Metric',
+        # title='Bitcoin Logarithmic Regression Risk Metric',
         color_continuous_scale='Turbo'
     )
 
@@ -95,7 +95,7 @@ def bitcoin_plot(btc):
 
 def bitcoin_risk(btc):
     fig = px.line(btc, x='date', y=['risk'],
-                  title='Historical Bitcoin Price and Logarithmic Regression',
+                #   title='Historical Bitcoin Price and Logarithmic Regression',
                   labels={'date': 'Date', 'open-price': 'Open Price', 
                           'fit': 'Fit', 
                           'undervalued': 'Undervalued',
@@ -173,7 +173,7 @@ def bitcoin_plot_time_risk(btc):
         x='date',
         y='usd',
         color='risk',  # Color the scatter points by the 'risk' column
-        title='Bitcoin price colored by time-risk',
+        # title='Bitcoin price colored by time-risk',
         color_continuous_scale='Turbo'
     )
 
