@@ -4,11 +4,18 @@ This Python package provides a simple risk metric for the BTC/USD pair based on 
 
 ## Results
 
-Here's a snapshow of risk metric (click the [link](https://roman-ellerbrock.github.io/bitcoin_risk/btc.html) below for an interactive version)
+The main result of this repo is the [Bitcoin risk dashboard](https://roman-ellerbrock.github.io/bitcoin_risk/index.html).
 
+Here're a snapshow of the results:
+
+[Bitcoin-price colored by risk](https://roman-ellerbrock.github.io/bitcoin_risk/btc.html)
 ![Bitcoin Risk Chart](docs/btc.png)
-
-[View the interactive chart](https://roman-ellerbrock.github.io/bitcoin_risk/btc.html)
+[Valuation-based Bitcoin risk](https://roman-ellerbrock.github.io/bitcoin_risk/risk.html)
+![Bitcoin Risk Chart](docs/risk.png)
+[Bitcoin-price colored by time-risk](https://roman-ellerbrock.github.io/bitcoin_risk/btc_time.html)
+![Bitcoin-price colored time-risk Chart](docs/btc_time.png)
+[Time-based Bitcoin risk](https://roman-ellerbrock.github.io/bitcoin_risk/timerisk.html)
+![Time-based Bitcoin risk Chart](docs/time_risk.png)
 
 ## Installation
 

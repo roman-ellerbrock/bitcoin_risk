@@ -130,7 +130,7 @@ def bitcoin_risk(btc):
             )])
     return fig
 
-def bitcoin_plot_time_risk(btc):
+def bitcoin_plot_time_risk(btc, col = 'time-risk'):
 
     def add_colordropdown(fig):
         colorscales = ['Plotly3', 'Viridis', 'Rainbow', 'Jet']
@@ -172,7 +172,7 @@ def bitcoin_plot_time_risk(btc):
         btc,
         x='date',
         y='usd',
-        color='risk',  # Color the scatter points by the 'risk' column
+        color=col,  # Color the scatter points by the 'risk' column
         # title='Bitcoin price colored by time-risk',
         color_continuous_scale='Turbo'
     )
@@ -207,3 +207,59 @@ def bitcoin_plot_time_risk(btc):
     add_colordropdown(fig)
 
     return fig
+
+def plot_btc_time_risk(btc):
+    fig = px.line(btc, x='date', y=['time-risk'],
+                #   title='Bitcoin time risk - days until current price equals fair value',
+                  labels={'date': 'Date', 'open-price': 'Open Price', 
+                          'fit': 'Fit', 
+                          'undervalued': 'Undervalued',
+                          'overvalued': 'Overvalued',
+                          'top': 'Bubble Top'})
+    fig.update_traces(mode='lines', hovertemplate='%{y}')
+    fig.update_layout(
+                shapes=[
+                # Green (low risk)
+                dict(
+                    type="rect",
+                    xref="paper", yref="y",
+                    x0=0, x1=1, y0=-750, y1=0,  # Adjust y0 and y1 for the "low risk" range
+                    fillcolor="rgba(0, 255, 0, 0.2)",  # Green with transparency
+                    layer="below", line_width=0
+                ),
+                # Orange (medium risk)
+                dict(
+                    type="rect",
+                    xref="paper", yref="y",
+                    x0=0, x1=1, y0=0, y1=750,  # Adjust y0 and y1 for the "medium risk" range
+                    fillcolor="rgba(255, 165, 0, 0.2)",  # Orange with transparency
+                    layer="below", line_width=0
+                ),
+                # Red (high risk)
+                dict(
+                    type="rect",
+                    xref="paper", yref="y",
+                    x0=0, x1=1, y0=750, y1=1300,  # Adjust y0 and y1 for the "high risk" range
+                    fillcolor="rgba(255, 0, 0, 0.2)",  # Red with transparency
+                    layer="below", line_width=0
+                )])
+    return fig
+
+def create_figures(btc, path):
+    # btc-risk
+    fig1 = bitcoin_plot(btc)
+    fig1.write_html(path / 'btc.html', config={'displaylogo': False})
+
+    # risk
+    fig2 = bitcoin_risk(btc)
+    fig2.write_html(path / 'risk.html')
+
+    # btc-time-risk
+    fig3 = bitcoin_plot_time_risk(btc)
+    fig3.write_html(path / 'btc_time.html', config={'displaylogo': False})
+
+    # time-risk
+    fig4 = plot_btc_time_risk(btc)
+    fig4.write_html(path / 'timerisk.html', config={'displaylogo': False})
+
+    return fig1, fig2, fig3, fig4

@@ -40,33 +40,60 @@
     <div class="container">
         <h1>Bitcoin Analysis Dashboard</h1>
         
+        <!-- Dropdown to select version -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <label for="version-select">Include Price data before</label>
+            <select id="version-select">
+                <option value="2024-11-30">December 2024</option>
+                <option value="2022-11-30">December 2022</option>
+                <option value="2020-11-30">December 2020</option>
+                <option value="2018-11-30">December 2018</option>
+                <option value="2016-11-30">December 2016</option>
+                <option value="2014-11-30">December 2014</option>
+                <option value="2012-11-30">December 2012</option>
+            </select>
+        </div>
+
+        <!-- Dashboard with dynamic content -->
         <div class="iframe-container">
             <div class="description">
                 <strong>Bitcoin Price colored by valuation risk metric:</strong> Historical bitcoin price ($) colored by valuation-based risk metric.
             </div>
-            <iframe src="btc.html"></iframe>
+            <iframe id="btc-iframe" src="2024-11-30/btc.html"></iframe>
         </div>
         
         <div class="iframe-container">
             <div class="description">
                 <strong>Valuation Risk:</strong> Bitcoin risk metric based on logarithmic regression.
             </div>
-            <iframe src="risk.html"></iframe>
+            <iframe id="risk-iframe" src="2024-11-30/risk.html"></iframe>
         </div>
 
         <div class="iframe-container">
             <div class="description">
                 <strong>Bitcoin Price colored by Time Risk:</strong> Historical Bitcoin price ($) colored by days until current price equals fair value derived from logarithmic regression.
             </div>
-            <iframe src="btc_time.html"></iframe>
+            <iframe id="btc-time-iframe" src="2024-11-30/btc_time.html"></iframe>
         </div>
 
         <div class="iframe-container">
             <div class="description">
                 <strong>Time Risk Analysis:</strong> Days until current bitcoin price equals fair value derived from logarithmic regression.
             </div>
-            <iframe src="timerisk.html"></iframe>
+            <iframe id="time-risk-iframe" src="2024-11-30/timerisk.html"></iframe>
         </div>
     </div>
+
+    <script>
+        // JavaScript to handle version switching
+        document.getElementById('version-select').addEventListener('change', function () {
+            const version = this.value.toLowerCase(); // Get selected version (e.g., 'a', 'b', 'c')
+
+            // Update iframe sources for the selected version
+            document.getElementById('btc-iframe').src = `${version}/btc.html`;
+            document.getElementById('risk-iframe').src = `${version}/risk.html`;
+            document.getElementById('btc-time-iframe').src = `${version}/btc_time.html`;
+            document.getElementById('time-risk-iframe').src = `${version}/timerisk.html`;
+        });
+    </script>
 </body>
-</html>
