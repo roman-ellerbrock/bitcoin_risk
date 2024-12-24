@@ -3,97 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Analysis</title>
+    <title>Bitcoin Analysis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
+            background-color: #f4f4f9;
             color: #333;
         }
-        .iframe-container {
-            margin: 20px 0;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        nav {
+            background-color: #333;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
         }
-        iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: 600;
         }
-        .description {
+        nav a:hover {
+            color: #ff9800;
+        }
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .hero p {
+            font-size: 20px;
+            margin: 10px 0 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 24px;
+            color: #ff5722;
+        }
+        .card p {
+            margin: 0;
             font-size: 16px;
-            margin: 10px 0;
             color: #555;
+        }
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .card a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="risk.html">Risk Analysis</a>
+        <a href="sortino.html">Sortino Analysis</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
         <h1>Bitcoin Analysis Dashboard</h1>
-        
-        <!-- Dropdown to select version -->
-        <div style="text-align: center; margin-bottom: 20px;">
-            <label for="version-select">Include Price data before</label>
-            <select id="version-select">
-                <option value="2024-11-30">December 2024</option>
-                <option value="2022-11-30">December 2022</option>
-                <option value="2020-11-30">December 2020</option>
-                <option value="2018-11-30">December 2018</option>
-                <option value="2016-11-30">December 2016</option>
-                <option value="2014-11-30">December 2014</option>
-                <option value="2012-11-30">December 2012</option>
-            </select>
-        </div>
-
-        <!-- Dashboard with dynamic content -->
-        <div class="iframe-container">
-            <div class="description">
-                <strong>Bitcoin Price colored by valuation risk metric:</strong> Historical bitcoin price ($) colored by valuation-based risk metric.
-            </div>
-            <iframe id="btc-iframe" src="2024-11-30/btc.html"></iframe>
-        </div>
-        
-        <div class="iframe-container">
-            <div class="description">
-                <strong>Valuation Risk:</strong> Bitcoin risk metric based on logarithmic regression.
-            </div>
-            <iframe id="risk-iframe" src="2024-11-30/risk.html"></iframe>
-        </div>
-
-        <div class="iframe-container">
-            <div class="description">
-                <strong>Bitcoin Price colored by Time Risk:</strong> Historical Bitcoin price ($) colored by days until current price equals fair value derived from logarithmic regression.
-            </div>
-            <iframe id="btc-time-iframe" src="2024-11-30/btc_time.html"></iframe>
-        </div>
-
-        <div class="iframe-container">
-            <div class="description">
-                <strong>Time Risk Analysis:</strong> Days until current bitcoin price equals fair value derived from logarithmic regression.
-            </div>
-            <iframe id="time-risk-iframe" src="2024-11-30/timerisk.html"></iframe>
-        </div>
+        <p>Explore Bitcoin metrics, risks, and financial insights.</p>
     </div>
 
-    <script>
-        // JavaScript to handle version switching
-        document.getElementById('version-select').addEventListener('change', function () {
-            const version = this.value.toLowerCase(); // Get selected version (e.g., 'a', 'b', 'c')
-
-            // Update iframe sources for the selected version
-            document.getElementById('btc-iframe').src = `${version}/btc.html`;
-            document.getElementById('risk-iframe').src = `${version}/risk.html`;
-            document.getElementById('btc-time-iframe').src = `${version}/btc_time.html`;
-            document.getElementById('time-risk-iframe').src = `${version}/timerisk.html`;
-        });
-    </script>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+            <h2>Risk Analysis</h2>
+            <p>Explore historical Bitcoin price colored by valuation and time-based risk metrics.</p>
+            <a href="risk.html">Go to Risk Analysis →</a>
+        </div>
+        <div class="card">
+            <h2>Sortino Analysis</h2>
+            <p>Analyze Bitcoin and S&P 500 Sortino ratios to assess performance and risk.</p>
+            <a href="sortino.html">Go to Sortino Analysis →</a>
+        </div>
+    </div>
 </body>
+</html>

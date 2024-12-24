@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortino Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="risk.html">Risk Analysis</a>
+        <a href="sortino.html">Sortino Analysis</a>
+    </nav>
+
+    <div class="container">
+        <h1>Sortino Analysis Dashboard</h1>
+
+        <!-- Sortino Ratio for Bitcoin -->
+        <div class="iframe-container">
+            <div class="description">
+                <strong>Bitcoin Sortino Ratio:</strong> Analysis of Bitcoin's Sortino ratio over time.
+            </div>
+            <iframe src="btc_sortino.html"></iframe>
+        </div>
+
+        <!-- Sortino Ratio for S&P 500 -->
+        <div class="iframe-container">
+            <div class="description">
+                <strong>S&P 500 Sortino Ratio:</strong> Analysis of S&P 500's Sortino ratio over time.
+            </div>
+            <iframe src="spx_sortino.html"></iframe>
+        </div>
+    </div>
+</body>
+</html>
