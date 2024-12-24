@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Logarithmic Regression Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="btc_risk.html">Bitcoin</a>
+        <a href="eth_risk.html">Ethereum</a>
+        <a href="sortino.html">Sortino Analysis</a>
+    </nav>
+
+    <div class="container">
+        <h1>Ethereum Analysis Dashboard</h1>
+        
+        <!-- Dropdown to select version -->
+        <div class="dropdown">
+            <label for="version-select">Include Price data before:</label>
+            <select id="version-select">
+                <option value="2024-11-30">December 2024</option>
+                <option value="2023-11-30">December 2023</option>
+                <option value="2022-11-30">December 2022</option>
+                <option value="2021-11-30">December 2021</option>
+                <option value="2020-11-30">December 2020</option>
+                <option value="2019-11-30">December 2019</option>
+            </select>
+        </div>
+
+        <!-- Dashboard with dynamic content -->
+        <div class="iframe-container">
+            <div class="description">
+                <strong>Ethereum Price colored by valuation risk metric:</strong> Historical bitcoin price ($) colored by valuation-based risk metric.
+            </div>
+            <iframe id="eth-iframe" src="eth/2024-11-30/price.html"></iframe>
+        </div>
+        
+        <div class="iframe-container">
+            <div class="description">
+                <strong>Valuation Risk:</strong> Ethereum risk metric based on logarithmic regression.
+            </div>
+            <iframe id="risk-iframe" src="eth/2024-11-30/risk.html"></iframe>
+        </div>
+
+        <div class="iframe-container">
+            <div class="description">
+                <strong>Ethereum Price colored by Time Risk:</strong> Historical Ethereum price ($) colored by days until current price equals fair value derived from logarithmic regression.
+            </div>
+            <iframe id="eth-time-iframe" src="eth/2024-11-30/price_time.html"></iframe>
+        </div>
+
+        <div class="iframe-container">
+            <div class="description">
+                <strong>Time Risk Analysis:</strong> Days until current bitcoin price equals fair value derived from logarithmic regression.
+            </div>
+            <iframe id="time-risk-iframe" src="eth/2024-11-30/timerisk.html"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle version switching
+        document.getElementById('version-select').addEventListener('change', function () {
+            const version = this.value.toLowerCase();
+
+            // Update iframe sources for the selected version
+            document.getElementById('eth-iframe').src = `eth/${version}/price.html`;
+            document.getElementById('risk-iframe').src = `eth/${version}/risk.html`;
+            document.getElementById('eth-time-iframe').src = `eth/${version}/price_time.html`;
+            document.getElementById('time-risk-iframe').src = `eth/${version}/timerisk.html`;
+        });
+    </script>
+</body>
+</html>

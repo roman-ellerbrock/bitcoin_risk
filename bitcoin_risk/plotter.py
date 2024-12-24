@@ -245,21 +245,21 @@ def plot_btc_time_risk(btc):
                 )])
     return fig
 
-def create_figures(btc, path):
-    # btc-risk
-    fig1 = bitcoin_plot(btc)
-    fig1.write_html(path / 'btc.html', config={'displaylogo': False})
+def create_figures(df, path):
+    # df-risk
+    fig1 = bitcoin_plot(df)
+    fig1.write_html(path / 'price.html', config={'displaylogo': False})
 
     # risk
-    fig2 = bitcoin_risk(btc)
+    fig2 = bitcoin_risk(df)
     fig2.write_html(path / 'risk.html')
 
-    # btc-time-risk
-    fig3 = bitcoin_plot_time_risk(btc)
-    fig3.write_html(path / 'btc_time.html', config={'displaylogo': False})
+    # df-time-risk
+    fig3 = bitcoin_plot_time_risk(df)
+    fig3.write_html(path / 'price_time.html', config={'displaylogo': False})
 
     # time-risk
-    fig4 = plot_btc_time_risk(btc)
+    fig4 = plot_btc_time_risk(df)
     fig4.write_html(path / 'timerisk.html', config={'displaylogo': False})
 
     return fig1, fig2, fig3, fig4
