@@ -58,8 +58,8 @@ def _unix_to_btc_time(date):
     # first = 1422133182 # ETH Jan 2015
     # first = 1435784113 # Eth July 2015
     # first = 1415784113 # Eth Nov 2014
-    # first = 1406062513 # Eth July 2014 crowd sale
-    # first = 1438289713 # Eth July 2015 first block
+    # first = 1396062513 # Eth July 2014 crowd sale
+    first = 1438289713 # Eth July 2015 first block
     delta = 1e7
     return date - first + delta
 
