@@ -54,20 +54,27 @@ def extend_dates(df, start_date, last_date, end_date):
 
 
 def _unix_to_btc_time(date):
-    # first = 1.2625632e+09 # BTC
+    first = 1.2625632e+09 # BTC
     # first = 1422133182 # ETH Jan 2015
     # first = 1435784113 # Eth July 2015
     # first = 1415784113 # Eth Nov 2014
     # first = 1396062513 # Eth July 2014 crowd sale
-    first = 1438289713 # Eth July 2015 first block
+    # first = 1438289713 # Eth July 2015 first block
     delta = 1e7
     return date - first + delta
 
 
+# def _bitcoin_time(date):
+#     x = pd.to_datetime(date).copy()
+#     x = x.apply(lambda x: x.timestamp())
+#     return _unix_to_btc_time(x)
 def _bitcoin_time(date):
-    x = pd.to_datetime(date).copy()
-    x = x.apply(lambda x: x.timestamp())
-    return _unix_to_btc_time(x)
+    # Convert to pandas datetime (if not already)
+    dt = pd.to_datetime(date)
+    # Convert to unix seconds (as int) for all entries, works for pd.Series/Index/array
+    unix_sec = dt.astype('int64') // 10**9
+    return _unix_to_btc_time(unix_sec)
+
 
 
 def _evaluate_fit(fit, date):
@@ -93,8 +100,10 @@ def btc_fit(btc, dates, price):
     t = _bitcoin_time(dates)
     t = np.log(t)
     y = np.log(price)
-    btc_fit = np.polyfit(t, y, 1)
-    return _evaluate_fit(btc_fit, btc['date'])
+
+    mask = ~np.isnan(t) & ~np.isnan(y)
+    fit = np.polyfit(t[mask], y[mask], 1)
+    return _evaluate_fit(fit, btc['date'])
 
 
 def _evaluate_fit_time(fit, price, time):
@@ -134,14 +143,18 @@ def log_fits(btc, last_included_date):
     btc_undervalued = df[df['usd'] < btc.loc[df.index, 'fit']]  # Mask only for relevant indices
     btc['undervalued'] = btc_fit(btc, btc_undervalued['date'], btc_undervalued['usd'])
 
+    # Compute bottom fit
+    btc_bottom = df[df['usd'] < btc.loc[df.index, 'undervalued']]  # Mask only for relevant indices
+    btc['bottom'] = btc_fit(btc, btc_bottom['date'], btc_bottom['usd'])
+
     # Compute overvalued fit
     btc_overvalued = df[df['usd'] > btc.loc[df.index, 'fit']]  # Mask only for relevant indices
     btc['overvalued'] = btc_fit(btc, btc_overvalued['date'], btc_overvalued['usd'])
-
+ 
     # Compute bubble fit
     btc_bubble = df[df['usd'] > btc.loc[df.index, 'overvalued']]  # Mask only for relevant indices
     btc['bubble'] = btc_fit(btc, btc_bubble['date'], btc_bubble['usd'])
-
+ 
     # Compute top fit
     btc_top = df[df['usd'] > btc.loc[df.index, 'bubble']]  # Mask only for relevant indices
     btc['top'] = btc_fit(btc, btc_top['date'], btc_top['usd'])

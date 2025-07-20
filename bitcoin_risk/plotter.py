@@ -51,8 +51,12 @@ def bitcoin_plot(btc):
     # future = btc[btc['date'] > '2024-11-01']
     future = btc
     # add_line(fig, future['date'], future['fit'], 'rgba(000, 200, 000, 0.4)', 'top')
-    add_line(fig, future['date'], future['top'], 'rgba(200, 000, 000, 0.4)', 'top')
-    add_line(fig, future['date'], future['undervalued'], 'rgba(0, 000, 200, 0.4)', 'bottom')
+    add_line(fig, future['date'], future['top'], 'rgba(255, 000, 000, 0.4)', 'top')
+    # add_line(fig, future['date'], future['bubble'], 'rgba(200, 000, 000, 0.4)', 'bubble')
+    add_line(fig, future['date'], future['overvalued'], 'rgba(100, 000, 000, 0.4)', 'overvalued')
+    add_line(fig, future['date'], future['fit'], 'rgba(000, 200, 000, 0.4)', 'fair')
+    add_line(fig, future['date'], future['undervalued'], 'rgba(0, 000, 100, 0.4)', 'undervalued')
+    # add_line(fig, future['date'], future['bottom'], 'rgba(255, 000, 000, 0.4)', 'bottom')
 
     # Convert the figure to a Plotly Graph Object figure to add a second axis
     fig = go.Figure(fig)
@@ -96,12 +100,15 @@ def bitcoin_plot(btc):
 def bitcoin_risk(btc):
     fig = px.line(btc, x='date', y=['risk'],
                 #   title='Historical Bitcoin Price and Logarithmic Regression',
-                  labels={'date': 'Date', 'open-price': 'Open Price', 
+                  labels={'date': 'Date',
+                          'open-price': 'Open Price', 
                           'fit': 'Fit', 
                           'undervalued': 'Undervalued',
                           'overvalued': 'Overvalued',
                           'top': 'Bubble Top'})
+
     fig.update_traces(mode='lines', hovertemplate='%{y}')
+
     fig.update_layout(hovermode='x unified',
             shapes=[
             # Green (low risk)
@@ -128,6 +135,7 @@ def bitcoin_risk(btc):
                 fillcolor="rgba(255, 0, 0, 0.2)",  # Red with transparency
                 layer="below", line_width=0
             )])
+
     return fig
 
 def bitcoin_plot_time_risk(btc, col = 'time-risk'):

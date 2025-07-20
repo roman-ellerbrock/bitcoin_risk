@@ -1,0 +1,20 @@
+name: bitcoin_risk
+channels: 
+- conda-forge
+- default
+dependencies:
+- pip
+- networkx
+- numpy
+- pre-commit
+- matplotlib
+- numpy
+- pandas
+- plotly
+- nbformat
+- yfinance
+- fredapi
+- hmmlearn
+- pip:
+  - kaleido
+  - -e .

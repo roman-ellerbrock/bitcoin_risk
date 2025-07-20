@@ -6,6 +6,7 @@
     <title>Bitcoin Logarithmic Regression Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -31,6 +32,48 @@
                 <option value="2014-11-30">December 2014</option>
                 <option value="2012-11-30">December 2012</option>
             </select>
+        </div>
+
+        <div class="explanation"></div>
+            <h3>Explanation</h3>
+            <p>
+                The logarithmic regression model can be expressed as:
+            </p>
+            <p>
+                \[
+                \log(P(t)) = a \cdot \log(t - t0) + b
+                \]
+            </p>
+            <p>
+                Where:
+                <ul>
+                    <li>\(P(t)\): The price at time \(t\) relative to a start time \(t0\).</li>
+                    <li>\(a, b\): Model parameters derived from historical price data.</li>
+                    <li>\(\log\): Natural logarithm.</li>
+                </ul>
+            </p>
+            <p>
+                The logarithmic regression or power law describes many processes in nature. Historical price action of
+                bitcoin can in first order be described using a power law as well. The diagrams below show the historical
+                price of bitcoin and a risk metric based on deviations from the power law fit.
+            </p>
+
+            <h5>Backtesting with limited data</h5>
+            <p>
+                The model was historically quite predictive of future price action. Try out the 
+                drop down bar above to select until when data should be used for the regression. For example, even with
+                data from December 2020, the regression predicted the 2021 tops and the 2022 low quite well. The same is
+                true for the 2017 bubble with data until December 2016. In fact, the data from 2016 - which includes only
+                6 years of price action - still provides a good estimate today (Dec. 2024).
+
+            <h5>Selection of inception time</h5>
+            <p>
+                Note that the fit requires selecting an inception time, \(t0\). While this parameter can be fitted, I chose
+                this value manually to a time around the first bitcoin block. The resulting fit is then simplified to a 
+                standard linear fit on log-price and log-time.
+                While later data is barely affected by this selection, earlier predictions are more sensitive
+                to this choice and choosing the correct value in 2016 might have been difficult without the benefit of hindsight.
+            </p>
         </div>
 
         <!-- Dashboard with dynamic content -->
